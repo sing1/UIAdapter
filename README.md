@@ -36,52 +36,21 @@
 ```groovy
 dependencies {
     ...
-    compile 'sing.util:library:1.0.1'
+    compile 'sing.uiadapter:library:1.0.1'
 }
 ```
 或者使用后面的代码自己生成，然后考到项目中，或者下载library中的代码拷贝，这个库适配的机型有：  
-  表头  | 表头  
-  ------------- | -------------  
- 单元格内容  | 单元格内容  
- 单元格内容l  | 单元格内容   
 
-```xml  
-240x320 120dpi  
-240x400 120dpi  
-240x432 120dpi  
-320x480 160dpi  
-480x640 240dpi  
-480x800 120dpi  
-480x800 160dpi  
-480x800 240dpi  
-480x854 120dpi  
-480x854 160dpi  
-480x854 240dpi  
-640x960 320dpi  
-600x1024 160dpi  
-600x1024 240dpi  
-600x1024 120dpi  
-720x1280 160dpi  
-720x1280 240dpi  
-720x1280 320dpi  
-768x1280 320dpi  
-768x1024 160dpi  
-768x1280 160dpi  
-768x1280 240dpi  
-800x1280 320dpi  
-800x1280 160dpi  
-800x1280 213dpi  
-1080x1920 420dpi  
-1080x1920 480dpi  
-1200x1920 320dpi  
-1440x2560 560dpi  
-1152x1536 240dpi  
-1152x1920 240dpi  
-1200x1920 240dpi  
-1536x2048 320dpi  
-1536x2560 320dpi  
-1600x2560 320dpi
-```  
+
+240x320 120dpi|240x400 120dpi|240x432 120dpi|320x480 160dpi|480x640 240dpi
+--------------|--------------|--------------|--------------|--------------  
+480x800 120dpi|480x800 160dpi|480x800 240dpi|480x854 120dpi|480x854 160dpi
+480x854 240dpi|640x960 320dpi|600x1024 160dpi|600x1024 240dpi|600x1024 120dpi
+720x1280 160dpi|720x1280 240dpi|720x1280 320dpi|768x1280 320dpi|768x1024 160dpi
+768x1280 160dpi|768x1280 240dpi|800x1280 320dpi|800x1280 160dpi|800x1280 213dpi
+1080x1920 420dpi|1080x1920 480dpi|1200x1920 320dpi|1440x2560 560dpi|1152x1536 240dpi
+1152x1920 240dpi|1200x1920 240dpi|1536x2048 320dpi|1536x2560 320dpi|1600x2560 320dpi
+ 
 这个其中包括了横屏和竖屏，下面是生成文件的代码：
 
 ```JAVA
@@ -179,13 +148,39 @@ private static void makeValue(int w, int h, int dpi, int type) {
 public static void main(String[] args) {
 	makeString(720, 1280, 320);
 	makeString(1080, 1920, 480);
+	// 这里可以输出你想要适配的机型
 }
 ```
-这就是生成的全部代码，使用生成的代码进行适配，先看图：  
+传入相应的机型后输出效果图如下：
+
+![](./app/src/main/res/drawable/ic_5.png "")
+
+使用生成的代码进行适配：  
 
 ![](./app/src/main/res/drawable/demo1.png "")
 ![](./app/src/main/res/drawable/demo2.jpg "")  
 
-从图中可以看出，在1280x720和1920x1080的手机上，不管是横屏还是竖屏，控件的宽度和高度分别占据屏幕的1/2和1/4的的大小，由此说明，生成的文件计算的还是准确的，但是竖屏是个接近正方形的在横屏上却变成了长方形，是哪里出问题了？是因为控件的长度和高度是按手机的长宽计算的，所以适配的时候有时高度需要按照宽度来作为参考物，这个需要了解一下。
+从图中可以看出，在1280x720和1920x1080的手机上，不管是横屏还是竖屏，控件的宽度和高度分别占据屏幕的1/2和1/4的的大小，由此说明，生成的文件计算的还是准确的，但是竖屏是个接近正方形的在横屏上却变成了长方形，是哪里出问题了？
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/dp_180_x"
+        android:layout_height="@dimen/dp_160_y"
+        android:background="#123123"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>
+```
+
+是因为控件的长度和高度是按手机的长宽计算的，所以适配的时候有时高度需要按照宽度来作为参考物，这个需要了解一下。
 ***
 这个是第一版，如果有BUG的话欢迎指出！

@@ -1,17 +1,38 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'UIAdapter'
+
+    publishedGroupId = 'sing.uiadapter'
+    libraryName = 'UIAdapter'
+    artifact = 'library'
+
+    libraryDescription = 'This is a UIAdapter'
+
+    siteUrl = 'https://github.com/Sing1/UIAdapter'
+    gitUrl = 'https://github.com/Sing1/UIAdapter.git'
+
+    libraryVersion = '1.0.1'
+
+    developerId = 'sing1'
+    developerName = 'sing1'
+    developerEmail = '15202653100@163.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 23
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0.1"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -20,7 +41,14 @@ android {
         }
     }
 }
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+}
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
