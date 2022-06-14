@@ -1,5 +1,5 @@
 # UIAdapter
-### `转载标明出处 `
+###`转载标明出处 `
  
 这是一篇关于Android屏幕适配的介绍，首先声明，不建议使用px作为单位，原因大家都知道。 
 ###图片镇楼  
@@ -36,7 +36,7 @@
 ```groovy
 dependencies {
     ...
-    compile 'sing.uiadapter:library:1.0.1'
+    implementation 'com.github.sing1:UIAdapter:last_version'
 }
 ```
 或者使用后面的代码自己生成，然后考到项目中，或者下载library中的代码拷贝，这个库适配的机型有：  
@@ -50,7 +50,8 @@ dependencies {
 768x1280 160dpi|768x1280 240dpi|800x1280 320dpi|800x1280 160dpi|800x1280 213dpi
 1080x1920 420dpi|1080x1920 480dpi|1200x1920 320dpi|1440x2560 560dpi|1152x1536 240dpi
 1152x1920 240dpi|1200x1920 240dpi|1536x2048 320dpi|1536x2560 320dpi|1600x2560 320dpi
- 
+1080x2400 440dpi|1080x2252 440dpi|1080x2296 440dpi| | 
+
 这个其中包括了横屏和竖屏，下面是生成文件的代码：
 
 ```JAVA
